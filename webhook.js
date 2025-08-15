@@ -26,7 +26,7 @@ app.get('/', async (req, res) => {
 
 // Route for POST requests
 app.post('/', async (req, res) => {
-    await axios.get(process.env.WEBHOOK_SITE_URL + req.originalUrl, req.body);
+    await axios.post(process.env.WEBHOOK_SITE_URL + req.originalUrl, req.body);
 
     const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
     console.log(`\n\nWebhook received ${timestamp}\n`);
