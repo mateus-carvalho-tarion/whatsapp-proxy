@@ -1,0 +1,32 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Webhooks",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\webhook.js",
+            "runtimeArgs": [
+                "--env-file=.env"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Executar Testes E2E",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\tests-e2e\\index.js",
+            "runtimeArgs": [
+                "--env-file=.env"
+            ]
+        }
+    ]
+}
