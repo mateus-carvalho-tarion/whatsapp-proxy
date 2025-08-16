@@ -23,7 +23,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\tests-e2e\\index.js",
+            "program": "${workspaceFolder}\\tests\\index.js",
             "runtimeArgs": [
                 "--env-file=.env"
             ]

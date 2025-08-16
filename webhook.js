@@ -1,5 +1,6 @@
 const axios = require('axios');
 const express = require('express');
+const extractMessageData = require('./utils/extract-message-data');
 
 // Create an Express app
 const app = express();
@@ -26,11 +27,14 @@ app.get('/', async (req, res) => {
 
 // Route for POST requests
 app.post('/', async (req, res) => {
-    await axios.post(process.env.WEBHOOK_SITE_URL + req.originalUrl, req.body);
-
-    const timestamp = new Date().toISOString().replace('T', ' ').slice(0, 19);
-    console.log(`\n\nWebhook received ${timestamp}\n`);
-    console.log(JSON.stringify(req.body, null, 2));
+    try {
+        await axios.post(process.env.WEBHOOK_SITE_URL + req.originalUrl, req.body);
+        let extractedData = extractMessageData.extract({ data: req.body });
+        console.log(JSON.stringify(extractedData, null, 2));
+        await axios.post(process.env.WEBHOOK_SITE_URL + req.originalUrl, extractedData);
+    } catch (err) {
+        console.error('Error processing webhook:', err);
+    }
     res.status(200).end();
 });
 

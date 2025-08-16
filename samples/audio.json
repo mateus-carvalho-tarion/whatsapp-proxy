@@ -1,0 +1,42 @@
+{
+    "object": "whatsapp_business_account",
+    "entry": [
+        {
+            "id": "110700000000000_WHATSAPP_BUSINESS_ACCOUNT_ID",
+            "changes": [
+                {
+                    "value": {
+                        "messaging_product": "whatsapp",
+                        "metadata": {
+                            "display_phone_number": "15550000000_WHATSAPP_DISPLAY_PHONE_NUMBER",
+                            "phone_number_id": "119900000000000_WHATSAPP_PHONE_NUMBER_ID"
+                        },
+                        "contacts": [
+                            {
+                                "profile": {
+                                    "name": "Profile Name_WHATSAPP_PROFILE_NAME"
+                                },
+                                "wa_id": "5519000000000_WHATSAPP_CONTACT_WA_ID"
+                            }
+                        ],
+                        "messages": [
+                            {
+                                "from": "5519000000000_WHATSAPP_CONTACT_WA_ID",
+                                "id": "wamid.HBgNNTUxOTk5NDk0MDgyNB767777_MESSAGE_ID",
+                                "timestamp": "1755291448",
+                                "type": "audio",
+                                "audio": {
+                                    "mime_type": "audio/ogg; codecs=opus",
+                                    "sha256": "MiCoBFtv36d81McG6QRBHMv/dfasdfasdas/anCIOs=",
+                                    "id": "183262345345345656406",
+                                    "voice": true
+                                }
+                            }
+                        ]
+                    },
+                    "field": "messages"
+                }
+            ]
+        }
+    ]
+}
