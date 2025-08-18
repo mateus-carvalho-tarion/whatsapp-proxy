@@ -1,0 +1,26 @@
+[
+    {
+        "sender": {
+            "phoneNumber": "15550000000_WHATSAPP_DISPLAY_PHONE_NUMBER",
+            "phoneNumberId": "119900000000000_WHATSAPP_PHONE_NUMBER_ID"
+        },
+        "recipient": {
+            "name": "Profile Name_WHATSAPP_PROFILE_NAME",
+            "phoneNumber": "5519000000000_WHATSAPP_CONTACT_WA_ID"
+        },
+        "messages": [
+            {
+                "type": "list_reply",
+                "id": "list1",
+                "title": "List 1",
+                "description": "Desription 1",
+                "reference": {
+                    "from": "15190000000000_WHATSAPP_CONTACT_WA_ID",
+                    "id": "wamid.HBgNNTUxOTk5NDkdsSDasdasdASdASdjJDNzU4MTY0RDg4MjAyRTE0MQA="
+                },
+                "externalId": "wamid.HBgNNTUxOTk5NDk0MDgyNB767777_MESSAGE_ID",
+                "timestamp": "1755291448"
+            }
+        ]
+    }
+]

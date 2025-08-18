@@ -1,0 +1,29 @@
+[
+    {
+        "sender": {
+            "phoneNumber": "15550000000_WHATSAPP_DISPLAY_PHONE_NUMBER",
+            "phoneNumberId": "119900000000000_WHATSAPP_PHONE_NUMBER_ID"
+        },
+        "recipient": {
+            "name": "Profile Name_WHATSAPP_PROFILE_NAME",
+            "phoneNumber": "5519000000000_WHATSAPP_CONTACT_WA_ID"
+        },
+        "messages": [
+            {
+                "type": "order",
+                "catalogId": "catalog_id_123",
+                "text": "Order text",
+                "productItems": [
+                    {
+                        "productRetailerId": "product_id_123",
+                        "quantity": 1,
+                        "itemPrice": 199.99,
+                        "currency": "BRL"
+                    }
+                ],
+                "externalId": "wamid.HBgNNTUxOTk5NDk0MDgyNB767777_MESSAGE_ID",
+                "timestamp": "1755291448"
+            }
+        ]
+    }
+]
