@@ -1,0 +1,15 @@
+[
+    {
+        "sender": {
+            "phoneNumber": "15550000000_WHATSAPP_DISPLAY_PHONE_NUMBER",
+            "phoneNumberId": "119900000000000_WHATSAPP_PHONE_NUMBER_ID"
+        },
+        "statuses": [
+            {
+                "externalId": "wamid.HBgNNTUxOTk5NDk0MDgyNB767777_MESSAGE_ID",
+                "status": "sent",
+                "timestamp": "1755525312"
+            }
+        ]
+    }
+]

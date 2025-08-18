@@ -1,0 +1,22 @@
+[
+    {
+        "sender": {
+            "phoneNumber": "15550000000_WHATSAPP_DISPLAY_PHONE_NUMBER",
+            "phoneNumberId": "119900000000000_WHATSAPP_PHONE_NUMBER_ID"
+        },
+        "recipient": {
+            "name": "Profile Name_WHATSAPP_PROFILE_NAME",
+            "phoneNumber": "5519000000000_WHATSAPP_CONTACT_WA_ID"
+        },
+        "messages": [
+            {
+                "type": "video",
+                "mediaId": "1463784631611874",
+                "caption": "teste",
+                "mimeType": "video/mp4",
+                "externalId": "wamid.HBgNNTUxOTk5NDk0MDgyNB767777_MESSAGE_ID",
+                "timestamp": "1755291448"
+            }
+        ]
+    }
+]

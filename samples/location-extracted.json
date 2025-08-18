@@ -1,0 +1,23 @@
+[
+    {
+        "sender": {
+            "phoneNumber": "15550000000_WHATSAPP_DISPLAY_PHONE_NUMBER",
+            "phoneNumberId": "119900000000000_WHATSAPP_PHONE_NUMBER_ID"
+        },
+        "recipient": {
+            "name": "Profile Name_WHATSAPP_PROFILE_NAME",
+            "phoneNumber": "5519000000000_WHATSAPP_CONTACT_WA_ID"
+        },
+        "messages": [
+            {
+                "type": "location",
+                "latitude": -28.33333333,
+                "longitude": -49.22222222,
+                "name": "Rua Frei Caneca, 99999",
+                "address": "Rua Frei Caneca, 99999, Se, São Paulo SP, Brasil",
+                "externalId": "wamid.HBgNNTUxOTk5NDk0MDgyNB767777_MESSAGE_ID",
+                "timestamp": "1755291448"
+            }
+        ]
+    }
+]
