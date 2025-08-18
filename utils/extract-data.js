@@ -180,19 +180,19 @@ module.exports.extractMessages = ({ messages = [{ from: "5519000000000", id: "wa
                 break;
 
             case 'interactive':
-                console.log(message);
+                content = this.extractInteractive({ interactive: message?.interactive });
                 break;
 
             case 'reaction':
-                console.log(message);
+                content = this.extractReaction({ reaction: message?.reaction });
                 break;
 
             case 'order':
-                console.log(message);
+                content = this.extractOrder({ order: message?.order });
                 break;
 
             case 'button':
-                console.log(message);
+                content = this.extractButton({ button: message?.button });
                 break;
 
             default:
@@ -391,5 +391,76 @@ module.exports.extractReferenceMessage = ({ context = { "from": "15190000000000"
     return {
         from: context?.from || null,
         id: context?.id || null,
+    };
+}
+
+module.exports.extractInteractive = ({ interactive = { type: '' } }) => {
+    switch (interactive?.type) {
+        case 'button_reply':
+            return this.extractInteractiveButtonReply({ interactive });
+
+        case 'list_reply':
+            return this.extractInteractiveListReply({ interactive });
+
+        default:
+            throw new Error(`Unsupported interactive type '${interactive?.type}'`);
+    }
+}
+
+module.exports.extractInteractiveButtonReply = ({ button_reply = { id: 'button1', title: 'Button 1' } }) => {
+    return {
+        type: 'button_reply',
+        id: button_reply?.id || null,
+        title: button_reply?.title || null,
+    };
+}
+
+module.exports.extractInteractiveListReply = ({ list_reply = { id: 'list1', title: 'List 1', description: 'Desription 1' } }) => {
+    return {
+        type: 'list_reply',
+        id: list_reply?.id || null,
+        title: list_reply?.title || null,
+        description: list_reply?.description || null,
+    };
+}
+
+module.exports.extractReaction = ({ reaction = { message_id: 'wamid.HBgNNTUxOTk5NDk0MDgyNB767777', emoji: '👍' } }) => {
+    if (!reaction?.message_id) throw new Error('No message_id found in reaction object');
+    if (!reaction?.emoji) throw new Error('No emoji found in reaction object');
+
+    return {
+        type: 'reaction',
+        messageId: reaction?.message_id || null,
+        emoji: reaction?.emoji || null,
+    };
+}
+
+module.exports.extractButton = ({ button = { payload: 'reply', text: 'Text' } }) => {
+    if (!button?.payload) throw new Error('No payload found in button object');
+    if (!button?.text) throw new Error('No text found in button object');
+
+    return {
+        type: 'button',
+        payload: button?.payload || null,
+        text: button?.text || null,
+    };
+}
+
+module.exports.extractOrder = ({ order = { catalog_id: 'catalog_id_123', text: 'Order text', product_items: [{ product_retailer_id: 'product_id_123', quantity: 1, item_price: 199.99, currency: 'BRL' }] } }) => {
+    if (!order?.catalog_id) throw new Error('No catalog_id found in order object');
+    if (!order?.product_items || !Array.isArray(order.product_items) || order.product_items.length === 0) throw new Error('No product_items found in order object');
+
+    return {
+        type: 'order',
+        catalogId: order?.catalog_id,
+        text: order?.text || null,
+        productItems: order.product_items.map(item => {
+            return {
+                productRetailerId: item?.product_retailer_id || null,
+                quantity: item?.quantity || 1,
+                itemPrice: item?.item_price || 0,
+                currency: item?.currency || 'USD',
+            }
+        }),
     };
 }

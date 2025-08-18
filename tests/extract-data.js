@@ -9,8 +9,33 @@ const sampleText = require('../samples/text.json');
 const sampleTextReply = require('../samples/text-reply.json');
 const sampleVideo = require('../samples/video.json');
 const sampleMessageStatusUpdate = require('../samples/message-status-update.json');
+const sampleInteractiveButtons = require('../samples/interactive-buttons.json');
+const sampleInteractiveList = require('../samples/interactive-list.json');
+const sampleReaction = require('../samples/reaction.json');
+const sampleButton = require('../samples/button.json');
+const sampleOrder = require('../samples/order.json');
 
 let result;
+
+result = null;
+result = extractData.extract({ data: sampleButton });
+console.log(JSON.stringify(result, null, 2));
+
+result = null;
+result = extractData.extract({ data: sampleOrder });
+console.log(JSON.stringify(result, null, 2));
+
+result = null;
+result = extractData.extract({ data: sampleReaction });
+console.log(JSON.stringify(result, null, 2));
+
+result = null;
+result = extractData.extract({ data: sampleInteractiveList });
+console.log(JSON.stringify(result, null, 2));
+
+result = null;
+result = extractData.extract({ data: sampleInteractiveButtons });
+console.log(JSON.stringify(result, null, 2));
 
 result = null;
 result = extractData.extract({ data: sampleMessageStatusUpdate });
