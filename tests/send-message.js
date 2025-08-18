@@ -16,6 +16,14 @@ const sendMessage = require('../utils/send-message');
     //     body: 'Olá, tudo bem?\n\nAcesse https://www.google.com.br/',
     // };
 
+    // Reply message.
+    // req.type = 'text';
+    // req.params = {
+    //     previewUrl: false,
+    //     body: 'Reply for message ID.',
+    //     replyToId: 'wamid.HBgNNTUxOTk5NDasdasdasdasDNBMEUyQjRERjE4NzAzRjlBODk5AA==' // Example message ID to reply to
+    // };
+
     // Audio message
     // req.type = 'audio';
     // req.params = {

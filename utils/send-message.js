@@ -80,6 +80,8 @@ module.exports.sendAudioMessage = async (recipientPhoneNumber = '', params = {})
         }
     }
 
+    if (params.replyToId) req.context = { message_id: params.replyToId };
+
     return await executeRequest(req);
 }
 
@@ -111,6 +113,8 @@ module.exports.sendContactsMessage = async (recipientPhoneNumber = '', params = 
         ]
     }
 
+    if (params.replyToId) req.context = { message_id: params.replyToId };
+
     return await executeRequest(req);
 }
 
@@ -131,6 +135,9 @@ module.exports.sendDocumentMessage = async (recipientPhoneNumber = '', params = 
             filename: params.filename || '',
         }
     }
+
+    if (params.replyToId) req.context = { message_id: params.replyToId };
+
     return await executeRequest(req);
 }
 
@@ -171,6 +178,8 @@ module.exports.sendTextMessage = async (recipientPhoneNumber = '', params = {}) 
         }
     }
 
+    if (params.replyToId) req.context = { message_id: params.replyToId };
+
     return await executeRequest(req);
 }
 
@@ -190,6 +199,8 @@ module.exports.sendVideoMessage = async (recipientPhoneNumber = '', params = {})
             caption: params.caption || ''
         }
     }
+
+    if (params.replyToId) req.context = { message_id: params.replyToId };
 
     return await executeRequest(req);
 }
