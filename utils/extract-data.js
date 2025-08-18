@@ -397,10 +397,10 @@ module.exports.extractReferenceMessage = ({ context = { "from": "15190000000000"
 module.exports.extractInteractive = ({ interactive = { type: '' } }) => {
     switch (interactive?.type) {
         case 'button_reply':
-            return this.extractInteractiveButtonReply({ interactive });
+            return this.extractInteractiveButtonReply({ button_reply: interactive.button_reply });
 
         case 'list_reply':
-            return this.extractInteractiveListReply({ interactive });
+            return this.extractInteractiveListReply({ list_reply: interactive.list_reply });
 
         default:
             throw new Error(`Unsupported interactive type '${interactive?.type}'`);
