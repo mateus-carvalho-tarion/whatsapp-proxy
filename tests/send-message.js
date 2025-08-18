@@ -9,6 +9,9 @@ const sendMessage = require('../utils/send-message');
         params: {}
     };
 
+    // Set typing indicator
+    // await sendMessage.setTypingIndicator(recipientPhoneNumber, 'wamid.HBgNNTUxOTk5NDk0MDgyNBUCABIYFDNBMEUyQjRERjE4NzAzRjlBODk5AA==');
+
     // Text message with URL preview.
     // req.type = 'text';
     // req.params = {

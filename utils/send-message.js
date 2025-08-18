@@ -42,7 +42,23 @@ module.exports.sendMessage = async ({
     }
 }
 
-async function executeRequest(params) {
+module.exports.setTypingIndicator = async (recipientPhoneNumber = '', externalId = '') => {
+    if (!recipientPhoneNumber) throw new Error('Missing "recipientPhoneNumber" parameter');
+    if (!externalId) throw new Error('Missing "externalId" parameter');
+
+    let req = {
+        messaging_product: "whatsapp",
+        status: "read",
+        message_id: externalId,
+        typing_indicator: {
+            type: "text"
+        }
+    };
+
+    return await executeRequest(req, noResponse = true);
+}
+
+async function executeRequest(params, noResponse) {
     try {
         let result = await axios.post(
             `https://graph.facebook.com/${API_VERSION}/${process.env.PHONE_NUMBER_ID}/messages`,
@@ -54,6 +70,9 @@ async function executeRequest(params) {
                 }
             }
         );
+
+        if (noResponse) return;
+
         return {
             recipientPhoneNumber: result?.data?.contacts[0]?.wa_id,
             externalId: result?.data?.messages[0]?.id
