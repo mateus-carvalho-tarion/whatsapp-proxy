@@ -31,11 +31,12 @@ module.exports.extract = ({ data = {} }) => {
                 continue;
             }
 
-            let sender = this.extractSender({ metadata: change?.value?.metadata });
-            if (sender?.phone_number_id !== process.env.PHONE_NUMBER_ID) {
-                console.warn(`Phone number ID ${sender?.phone_number_id} does not match PHONE_NUMBER_ID ${process.env.PHONE_NUMBER_ID}`);
+            if (change?.value?.metadata?.phone_number_id !== process.env.PHONE_NUMBER_ID) {
+                console.warn(`Phone number ID ${change?.value?.metadata?.phone_number_id} does not match PHONE_NUMBER_ID ${process.env.PHONE_NUMBER_ID}`);
                 continue;
             }
+
+            let sender = this.extractSender({ metadata: change?.value?.metadata });
 
             if (change?.field == 'messages') {
                 let extractedEntry = { sender };

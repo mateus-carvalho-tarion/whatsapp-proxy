@@ -28,7 +28,7 @@ app.get('/', async (req, res) => {
 app.post('/', async (req, res) => {
     try {
         // await axios.post(process.env.WEBHOOK_SITE_URL + req.originalUrl, req.body);
-        // console.log(req.body, null, 2);
+        // console.log(JSON.stringify(req.body, null, 2));
 
         let extractedData = extractData.extract({ data: req.body });
         if (extractedData && extractedData.length > 0) {
