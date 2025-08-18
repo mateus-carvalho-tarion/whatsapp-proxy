@@ -15,16 +15,31 @@ module.exports.extract = ({ data = {} }) => {
             continue;
         }
 
+        if (entry.id !== process.env.ACCOUNT_ID) {
+            console.warn(`Entry ID ${entry.id} does not match ACCOUNT_ID ${process.env.ACCOUNT_ID}`);
+            continue;
+        }
+
         for (let change of entry.changes || []) {
             if (change?.value?.messaging_product !== 'whatsapp') {
                 console.warn(`Messaging product is not 'whatsapp' in entry ${data?.entry.indexOf(entry)} (${change?.value?.messaging_product})`);
                 continue;
             }
 
-            if (change?.field == 'messages') {
-                let extractedEntry = {};
+            if (!change?.value?.metadata) {
+                console.warn(`No metadata found in change ${entry.changes.indexOf(change)} of entry ${data?.entry.indexOf(entry)}`);
+                continue;
+            }
 
-                if (change?.value?.metadata) extractedEntry.sender = this.extractSender({ metadata: change?.value?.metadata });
+            let sender = this.extractSender({ metadata: change?.value?.metadata });
+            if (sender?.phone_number_id !== process.env.PHONE_NUMBER_ID) {
+                console.warn(`Phone number ID ${sender?.phone_number_id} does not match PHONE_NUMBER_ID ${process.env.PHONE_NUMBER_ID}`);
+                continue;
+            }
+
+            if (change?.field == 'messages') {
+                let extractedEntry = { sender };
+
                 if (change?.value?.contacts?.[0]) extractedEntry.recipient = this.extractRecipient({ contact: change?.value?.contacts?.[0] });
                 if (change?.value?.messages) extractedEntry.messages = this.extractMessages({ messages: change?.value?.messages });
                 if (change?.value?.statuses) extractedEntry.statuses = this.extractStatuses({ statuses: change.value.statuses });
