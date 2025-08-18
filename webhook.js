@@ -1,6 +1,6 @@
 const axios = require('axios');
 const express = require('express');
-const extractMessageData = require('./utils/extract-message-data');
+const extractData = require('./utils/extract-data');
 
 // Create an Express app
 const app = express();
@@ -14,8 +14,7 @@ const verifyToken = process.env.VERIFY_TOKEN;
 
 // Route for GET requests
 app.get('/', async (req, res) => {
-    await axios.get(process.env.WEBHOOK_SITE_URL + req.originalUrl);
-
+    // await axios.get(process.env.WEBHOOK_SITE_URL + req.originalUrl);
     const { 'hub.mode': mode, 'hub.challenge': challenge, 'hub.verify_token': token } = req.query;
     if (mode === 'subscribe' && token === verifyToken) {
         console.log('WEBHOOK VERIFIED');
@@ -28,10 +27,11 @@ app.get('/', async (req, res) => {
 // Route for POST requests
 app.post('/', async (req, res) => {
     try {
-        await axios.post(process.env.WEBHOOK_SITE_URL + req.originalUrl, req.body);
-        let extractedData = extractMessageData.extract({ data: req.body });
+        // await axios.post(process.env.WEBHOOK_SITE_URL + req.originalUrl, req.body);
+        console.log(req.body, null, 2);
+        let extractedData = extractData.extract({ data: req.body });
         console.log(JSON.stringify(extractedData, null, 2));
-        await axios.post(process.env.WEBHOOK_SITE_URL + req.originalUrl, extractedData);
+        // await axios.post(process.env.WEBHOOK_SITE_URL + req.originalUrl, extractedData);
     } catch (err) {
         console.error('Error processing webhook:', err);
     }

@@ -1,4 +1,4 @@
-const extractMessageData = require('../utils/extract-message-data');
+const extractData = require('../utils/extract-data');
 const sampleAudio = require('../samples/audio.json');
 const sampleContacts = require('../samples/contacts.json');
 const sampleDocument = require('../samples/document.json');
@@ -8,41 +8,46 @@ const sampleSticker = require('../samples/sticker.json');
 const sampleText = require('../samples/text.json');
 const sampleTextReply = require('../samples/text-reply.json');
 const sampleVideo = require('../samples/video.json');
+const sampleMessageStatusUpdate = require('../samples/message-status-update.json');
 
 let result;
 
 result = null;
-result = extractMessageData.extract({ data: sampleTextReply });
+result = extractData.extract({ data: sampleMessageStatusUpdate });
 console.log(JSON.stringify(result, null, 2));
 
 result = null;
-result = extractMessageData.extract({ data: sampleText });
+result = extractData.extract({ data: sampleTextReply });
 console.log(JSON.stringify(result, null, 2));
 
 result = null;
-result = extractMessageData.extract({ data: sampleAudio });
+result = extractData.extract({ data: sampleText });
 console.log(JSON.stringify(result, null, 2));
 
 result = null;
-result = extractMessageData.extract({ data: sampleContacts });
+result = extractData.extract({ data: sampleAudio });
 console.log(JSON.stringify(result, null, 2));
 
 result = null;
-result = extractMessageData.extract({ data: sampleDocument });
+result = extractData.extract({ data: sampleContacts });
 console.log(JSON.stringify(result, null, 2));
 
 result = null;
-result = extractMessageData.extract({ data: sampleImage });
+result = extractData.extract({ data: sampleDocument });
 console.log(JSON.stringify(result, null, 2));
 
 result = null;
-result = extractMessageData.extract({ data: sampleLocation });
+result = extractData.extract({ data: sampleImage });
 console.log(JSON.stringify(result, null, 2));
 
 result = null;
-result = extractMessageData.extract({ data: sampleSticker });
+result = extractData.extract({ data: sampleLocation });
 console.log(JSON.stringify(result, null, 2));
 
 result = null;
-result = extractMessageData.extract({ data: sampleVideo });
+result = extractData.extract({ data: sampleSticker });
+console.log(JSON.stringify(result, null, 2));
+
+result = null;
+result = extractData.extract({ data: sampleVideo });
 console.log(JSON.stringify(result, null, 2));

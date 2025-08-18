@@ -1,17 +1,14 @@
 /**
- * Extracts message data from WhatsApp Business API webhook payloads.
- * This module provides functions to extract sender, recipient, and content details from the incoming data.
- * It also handles various message types such as text, image, audio, video, document, sticker, location, and contacts.
- * It includes error handling and logging for missing or unexpected data.
+ * Extracts data from WhatsApp Business API webhook payloads.
  * @param {Object} data - The incoming data from the WhatsApp Business API webhook.
  * @param {Object} data.object - The object type of the incoming data, expected to be 'whatsapp_business_account'.
- * @returns {Array} An array of message objects containing sender, recipient, and content details.
+ * @returns {Array} An array of the extracted entries.
  * @throws {Error} If the object type is not 'whatsapp_business_account' or if required fields are missing in the data.
  */
 module.exports.extract = ({ data = {} }) => {
     if (data?.object != 'whatsapp_business_account') throw new Error('The object is not a WhatsApp Business Account');
 
-    let messages = [];
+    let extractedEntries = [];
     for (let entry of data?.entry || []) {
         if (!entry?.id) {
             console.warn(`No ID found in entry  ${data?.entry.indexOf(entry)}`);
@@ -19,34 +16,55 @@ module.exports.extract = ({ data = {} }) => {
         }
 
         for (let change of entry.changes || []) {
-            if (change?.field !== 'messages') {
-                console.warn(`Change field is not 'messages' in entry ${data?.entry.indexOf(entry)} (${change?.field})`);
-                continue;
-            }
-
             if (change?.value?.messaging_product !== 'whatsapp') {
                 console.warn(`Messaging product is not 'whatsapp' in entry ${data?.entry.indexOf(entry)} (${change?.value?.messaging_product})`);
                 continue;
             }
 
-            if (change?.value?.contacts?.length !== 1) {
-                console.warn(`Contacts length is not 1 in entry ${data?.entry.indexOf(entry)} (${change?.value?.contacts?.length})`);
-                continue;
+            if (change?.field == 'messages') {
+                let extractedEntry = {};
+
+                if (change?.value?.metadata) extractedEntry.sender = this.extractSender({ metadata: change?.value?.metadata });
+                if (change?.value?.contacts?.[0]) extractedEntry.recipient = this.extractRecipient({ contact: change?.value?.contacts?.[0] });
+                if (change?.value?.messages) extractedEntry.messages = this.extractMessages({ messages: change?.value?.messages });
+                if (change?.value?.statuses) extractedEntry.statuses = this.extractStatuses({ statuses: change.value.statuses });
+
+                extractedEntries.push(extractedEntry);
             }
-
-            let sender = this.extractSender({ metadata: change?.value?.metadata });
-            let recipient = this.extractRecipient({ contact: change?.value?.contacts?.[0] });
-            let content = this.extractContent({ messages: change?.value?.messages });
-
-            messages.push({
-                sender,
-                recipient,
-                content,
-            });
         }
     }
 
-    return messages;
+    return extractedEntries;
+}
+
+/**
+ * Extract status information from the contact object of the incoming data.
+ * @param {Array} statuses - The statuses array containing status objects.
+ * @param {string} statuses.id - The id of the refered message.
+ * @param {string} statuses.status - The status of the refered message.
+ * @returns {Array} An array of content objects extracted from the statuses.
+ */
+module.exports.extractStatuses = ({ statuses = [{ id: 'wamid.JHaksjdga', status: 'sent', timestamp: '1755291448' }] }) => {
+    let result = [];
+    for (let status of statuses) {
+        if (!status.id) {
+            console.warn(`No id found in status ${statuses.indexOf(status)}`);
+            continue;
+        }
+
+        if (!status.status) {
+            console.warn(`No status found in status ${statuses.indexOf(status)}`);
+            continue;
+        }
+
+        result.push({
+            externalId: status.id,
+            status: status.status,
+            timestamp: status.timestamp
+        });
+    }
+
+    return result;
 }
 
 /** 
@@ -93,7 +111,7 @@ module.exports.extractRecipient = ({ contact = { profile: { name: "Profile Name"
  * @returns {Array} An array of content objects extracted from the messages.
  * @throws {Error} If the messages array is not found or is empty.
  */
-module.exports.extractContent = ({ messages = [{ from: "5519000000000", id: "wamid.HBgNNTUxOTk5NDk0MDgyNB767777", timestamp: "1755291448", type: "text" }] }) => {
+module.exports.extractMessages = ({ messages = [{ from: "5519000000000", id: "wamid.HBgNNTUxOTk5NDk0MDgyNB767777", timestamp: "1755291448", type: "text" }] }) => {
     let contents = [];
     for (let message of messages) {
         if (!message?.id) {
