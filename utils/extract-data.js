@@ -179,6 +179,22 @@ module.exports.extractMessages = ({ messages = [{ from: "5519000000000", id: "wa
                 content = this.extractContacts({ contacts: message?.contacts });
                 break;
 
+            case 'interactive':
+                console.log(message);
+                break;
+
+            case 'reaction':
+                console.log(message);
+                break;
+
+            case 'order':
+                console.log(message);
+                break;
+
+            case 'button':
+                console.log(message);
+                break;
+
             default:
                 throw new Error(`Unsupported message type '${message?.type}' in message ${messages.indexOf(message)}`);
         }
