@@ -42,6 +42,19 @@ module.exports.sendMessage = async ({
     }
 }
 
+module.exports.setRead = async (recipientPhoneNumber = '', externalId = '') => {
+    if (!recipientPhoneNumber) throw new Error('Missing "recipientPhoneNumber" parameter');
+    if (!externalId) throw new Error('Missing "externalId" parameter');
+
+    let req = {
+        messaging_product: "whatsapp",
+        status: "read",
+        message_id: externalId,
+    };
+
+    return await executeRequest(req, noResponse = true);
+}
+
 module.exports.setTypingIndicator = async (recipientPhoneNumber = '', externalId = '') => {
     if (!recipientPhoneNumber) throw new Error('Missing "recipientPhoneNumber" parameter');
     if (!externalId) throw new Error('Missing "externalId" parameter');

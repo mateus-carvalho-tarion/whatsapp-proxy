@@ -9,6 +9,9 @@ const sendMessage = require('../utils/send-message');
         params: {}
     };
 
+    // Set message read
+    // await sendMessage.setRead(recipientPhoneNumber, 'wamid.HBgNNTUxOTk5NDk0MDgyNBUCABIYFDNBMEUyQjRERjE4NzAzRjlBODk5AA==');
+
     // Set typing indicator
     // await sendMessage.setTypingIndicator(recipientPhoneNumber, 'wamid.HBgNNTUxOTk5NDk0MDgyNBUCABIYFDNBMEUyQjRERjE4NzAzRjlBODk5AA==');
 
@@ -181,6 +184,6 @@ const sendMessage = require('../utils/send-message');
     //     }
     // };
 
-    result = await sendMessage.sendMessage(req);
-    console.log(JSON.stringify(result, null, 2));
+    // result = await sendMessage.sendMessage(req);
+    // console.log(JSON.stringify(result, null, 2));
 })();
